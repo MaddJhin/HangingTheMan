@@ -18,6 +18,7 @@ var wins = 0;
 var losses = 0;
 var currentWord;
 
+var guessString = [];
 
 function StartGame() {
     wins = 0;
@@ -28,13 +29,12 @@ function StartGame() {
 function ChoseWord() {
     currentWord = words[Math.floor(Math.random() * words.length)];
     
-    var placeholder = "";
     for (var index = 0; index < currentWord.length; index++) {
-        placeholder = placeholder.concat(hiddenCharacters[Math.floor(
+        guessString = guessString.concat(hiddenCharacters[Math.floor(
             Math.random() * hiddenCharacters.length)] + " ");
     }
     
-    document.getElementById("word-current").innerHTML = placeholder;
+    document.getElementById("word-current").innerHTML = guessString.join(" ");
 }
 
 function Reset() {
@@ -43,10 +43,24 @@ function Reset() {
 }
 
 function AddWin() {
-    
+    wins++;
+    document.getElementById("wins").innerHTML = "Wins: " + wins;
 }
 
 function AddLoss() {
-    
+    losses++;
+    document.getElementById("losses").innerHTML = "Losses: " + losses;
 }
 
+document.addEventListener("keypress", function CheckGuess(e) {
+
+    for (var index = 0; index < currentWord.length; index++) {
+        if(e.key == currentWord[index]){
+            guessString[index] = e.key; 
+        }
+    }
+
+    document.getElementById("word-current").innerHTML = guessString.join(" ");
+    console.log(guessString.join(""));
+    
+})
