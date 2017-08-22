@@ -11,18 +11,17 @@ header{
 
 .container{
     width: 100%;
-    max-width: 960px;
-    margin: 0 auto;
-}
-
-.container-left{
-    width: 100%;
     max-width: 700px;
     margin: 0 auto;
     padding: 10px;
     border: 1px dotted green;
     line-height: 1.5em;
-    display: block;
+    overflow: auto;
+}
+
+.container-left{
+    width: 400px;
+    float: left;
 }
 
 aside{

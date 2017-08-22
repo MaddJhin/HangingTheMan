@@ -1,10 +1,30 @@
 
 var hiddenCharacters = [
+    "&#9646",
+    "!",
+    "@",
     "#",
     "$",
     "%",
+    "^",
     "&",
-    "@"
+    "*",
+    "(",
+    ")",
+    "-",
+    "_",
+    "=",
+    "+",
+    "]",
+    "[",
+    "{",
+    "}",
+    "|",
+    "'",
+    "/",
+    "?",
+    ">",
+    "<",
 ];
 
 var words = [
@@ -123,4 +143,5 @@ document.addEventListener("keypress", function CheckGuess(e) {
         if(allGuessed)
             AddWin();
     }
+    
 })
