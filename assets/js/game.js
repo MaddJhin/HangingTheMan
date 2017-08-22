@@ -25,6 +25,8 @@ var guessString = [];
 function StartGame() {
     wins = 0;
     losses = 0;
+    document.getElementById("wins").innerHTML = "Wins: " + wins;
+    document.getElementById("losses").innerHTML = "Losses: " + losses;
     Reset();
 }
 
@@ -41,9 +43,6 @@ function ChoseWord() {
 }
 
 function Reset() {
-    // document.getElementById("wins").innerHTML = "Wins: " + wins;
-    // document.getElementById("losses").innerHTML = "Losses: " + losses;
-
     triesLeft = startingTries;
     lettersGuessed = [];
     document.getElementById("letters-guessed").innerHTML = "";
@@ -65,13 +64,6 @@ function AddLoss() {
 
 function HasTried(letter) {
 
-    // console.log(lettersGuessed.indexOf(letter));
-    // console.log(lettersGuessed);
-
-    // var temp = lettersGuessed.toString().split(" ");
-
-    // console.log(temp);
-
     if(lettersGuessed.indexOf(letter) == -1){
         return false;
     }
@@ -90,25 +82,51 @@ document.addEventListener("keypress", function CheckGuess(e) {
 
     var goodGuess = false;
 
-    for (var index = 0; index < currentWord.length; index++) 
+    for (var i = 0; i < currentWord.length; i++) 
     {
-        if(e.key == currentWord[index]){
-            guessString[index] = e.key;
+        if(e.key == currentWord[i]){
+            guessString[i] = e.key;
             goodGuess = true; 
         }
     }
 
-    if (!goodGuess && triesLeft > 0)
-    {
-        triesLeft--;
-        document.getElementById("tries-remaining").innerHTML = "Tries Remaining: " + triesLeft;
-    }
-    else
-    {
-        AddLoss();
+    if (!goodGuess){
+        if (triesLeft > 0)
+        {
+            triesLeft--;
+            document.getElementById("tries-remaining").innerHTML = "Tries Remaining: " + triesLeft;
+        }
+        else
+        {
+            AddLoss();
+        }
     }
 
+    if (goodGuess) {
 
+        // Check the internal current word and the string the user sees
+        console.log('current word', currentWord);
+        console.log("Guess String", guessString);
+
+        // Start assuming everything has been guessed
+        var allGuessed = true;
+
+        // If any characters from the current word and the guessed string don't match
+        // change all guessed to false
+        for (var i = 0; i < currentWord.length; i++){
+
+            // Debug 
+            console.log("Current Word Character", currentWord[i]);
+            console.log("Guess String Character", guessString[i]);
+
+            if(currentWord[i] == guessString[i]){
+                allGuessed = false;
+            }
+        }
+
+        if(allGuessed)
+            AddWin();
+    }
 
     document.getElementById("word-current").innerHTML = guessString.join(" ");
     lettersGuessed = lettersGuessed.concat(e.key);
