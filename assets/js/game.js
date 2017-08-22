@@ -119,8 +119,9 @@ document.addEventListener("keypress", function CheckGuess(e) {
             console.log("Current Word Character", currentWord[i]);
             console.log("Guess String Character", guessString[i]);
 
-            if(currentWord[i] == guessString[i]){
+            if(currentWord[i] != guessString[i]){
                 allGuessed = false;
+                console.log("Not Same");
             }
         }
 
