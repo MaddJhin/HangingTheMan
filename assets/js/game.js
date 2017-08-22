@@ -17,7 +17,8 @@ var lettersGuessed = [];
 var wins = 0;
 var losses = 0;
 var currentWord;
-var triesLeft = 10;
+var startingTries = 10;
+var triesLeft;
 
 var guessString = [];
 
@@ -28,6 +29,7 @@ function StartGame() {
 }
 
 function ChoseWord() {
+    guessString = [];
     currentWord = words[Math.floor(Math.random() * words.length)];
     
     for (var index = 0; index < currentWord.length; index++) {
@@ -39,30 +41,38 @@ function ChoseWord() {
 }
 
 function Reset() {
-    document.getElementById("wins").innerHTML = "Wins: " + wins;
-    document.getElementById("losses").innerHTML = "Losses: " + losses;
+    // document.getElementById("wins").innerHTML = "Wins: " + wins;
+    // document.getElementById("losses").innerHTML = "Losses: " + losses;
+
+    triesLeft = startingTries;
+    lettersGuessed = [];
+    document.getElementById("letters-guessed").innerHTML = "";
+    document.getElementById("tries-remaining").innerHTML = "Tries Remaining: " + triesLeft;
+    ChoseWord();
 }
 
 function AddWin() {
     wins++;
     document.getElementById("wins").innerHTML = "Wins: " + wins;
+    Reset();
 }
 
 function AddLoss() {
     losses++;
     document.getElementById("losses").innerHTML = "Losses: " + losses;
+    Reset();
 }
 
 function HasTried(letter) {
 
-    console.log(lettersGuessed.indexOf(letter));
+    // console.log(lettersGuessed.indexOf(letter));
     // console.log(lettersGuessed);
 
-    var temp = lettersGuessed.toString().split(" ");
+    // var temp = lettersGuessed.toString().split(" ");
 
-    console.log(temp);
+    // console.log(temp);
 
-    if(temp.indexOf(letter) == -1){
+    if(lettersGuessed.indexOf(letter) == -1){
         return false;
     }
     else{
@@ -71,25 +81,36 @@ function HasTried(letter) {
 }
 
 document.addEventListener("keypress", function CheckGuess(e) {
-    for (var index = 0; index < currentWord.length; index++) {
+
+    if (HasTried(e.key)) 
+    {
+        console.log("Letter Guessed");
+        return;
+    }
+
+    var goodGuess = false;
+
+    for (var index = 0; index < currentWord.length; index++) 
+    {
         if(e.key == currentWord[index]){
-            guessString[index] = e.key; 
-        }
-        else if (0 == triesLeft) {
-            AddLoss();
-        }
-        else
-        {
-            triesLeft--;
+            guessString[index] = e.key;
+            goodGuess = true; 
         }
     }
 
+    if (!goodGuess && triesLeft > 0)
+    {
+        triesLeft--;
+        document.getElementById("tries-remaining").innerHTML = "Tries Remaining: " + triesLeft;
+    }
+    else
+    {
+        AddLoss();
+    }
+
+
+
     document.getElementById("word-current").innerHTML = guessString.join(" ");
-    console.log(guessString.join(""));
-
-    lettersGuessed = lettersGuessed.concat(e.key + " ");
+    lettersGuessed = lettersGuessed.concat(e.key);
     document.getElementById("letters-guessed").innerHTML = lettersGuessed.join(" ");
-
-    console.log(HasTried(e.key));
-
 })
