@@ -11,7 +11,7 @@ var words = [
     "words",
     "testing",
     "play"
-]
+];
 
 var lettersGuessed = [];
 var wins = 0;
@@ -53,6 +53,7 @@ function Reset() {
 function AddWin() {
     wins++;
     document.getElementById("wins").innerHTML = "Wins: " + wins;
+    document.getElementById("wins").innerHTML += currentWord;
     Reset();
 }
 
@@ -102,23 +103,17 @@ document.addEventListener("keypress", function CheckGuess(e) {
         }
     }
 
+    document.getElementById("word-current").innerHTML = guessString.join(" ");
+    lettersGuessed = lettersGuessed.concat(e.key);
+    document.getElementById("letters-guessed").innerHTML = lettersGuessed.join(" ");
+
     if (goodGuess) {
-
-        // Check the internal current word and the string the user sees
-        console.log('current word', currentWord);
-        console.log("Guess String", guessString);
-
         // Start assuming everything has been guessed
         var allGuessed = true;
 
         // If any characters from the current word and the guessed string don't match
         // change all guessed to false
         for (var i = 0; i < currentWord.length; i++){
-
-            // Debug 
-            console.log("Current Word Character", currentWord[i]);
-            console.log("Guess String Character", guessString[i]);
-
             if(currentWord[i] != guessString[i]){
                 allGuessed = false;
                 console.log("Not Same");
@@ -128,8 +123,4 @@ document.addEventListener("keypress", function CheckGuess(e) {
         if(allGuessed)
             AddWin();
     }
-
-    document.getElementById("word-current").innerHTML = guessString.join(" ");
-    lettersGuessed = lettersGuessed.concat(e.key);
-    document.getElementById("letters-guessed").innerHTML = lettersGuessed.join(" ");
 })
