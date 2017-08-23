@@ -146,6 +146,30 @@ function HasTried(letter) {
     }
 }
 
+function PrintColumn(elementID) {
+    var div = document.getElementById(elementID);
+    var divHeight = div.offsetHeight;
+    var lineHeight = div.style.lineHeight;
+    var rows = divHeight/lineHeight;
+
+    console.log(lineHeight);
+
+    var placeholderString = [];
+    
+    for (var i = 0; i < 20; i++)
+    {
+        for (var x = 0; x < 5; x++)
+        {
+            placeholderString += hiddenCharacters[Math.floor(
+                Math.random() * hiddenCharacters.length)] + " ";
+            
+        }
+        placeholderString += "<br>";
+    }
+
+    div.innerHTML = placeholderString;
+}
+
 document.addEventListener("keypress", function CheckGuess(e) {
 
     if (HasTried(e.key)) 
@@ -195,5 +219,8 @@ document.addEventListener("keypress", function CheckGuess(e) {
         if(allGuessed)
             AddWin();
     }
-    
 })
+
+StartGame();
+ChoseWord();
+PrintColumn("guessed-words");

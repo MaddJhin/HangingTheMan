@@ -61,3 +61,7 @@ aside{
     line-height: 1.5em;
     text-align: center;
 }
+
+#guessed-words {
+    line-height: 1.5;
+}
