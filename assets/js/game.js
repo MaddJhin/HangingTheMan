@@ -28,9 +28,56 @@ var hiddenCharacters = [
 ];
 
 var words = [
-    "words",
-    "testing",
-    "play"
+    "actually",
+    "expected",
+    "property",
+    "addition",
+    "followed",
+    "provided",
+    "although",
+    "happened",
+    "question",
+    "american",
+    "increase",
+    "received",
+    "anything", 
+    "industry",
+    "religion",
+    "building",
+    "interest",
+    "remember",
+    "business",
+    "involved",
+    "required",
+    "children",
+    "national",
+    "services",
+    "complete",
+    "organize",
+    "southern",
+    "consider",
+    "personal",
+    "standard",
+    "continue",
+    "planning",
+    "strength",
+    "couldn't",
+    "position",
+    "students",
+    "decision",
+    "possible",
+    "suddenly",
+    "directly",
+    "pressure",
+    "thinking",
+    "district",
+    "probably", 
+    "together",
+    "economic",
+    "problems",
+    "training",
+    "evidence",
+    "programs"    
 ];
 
 var lettersGuessed = [];
@@ -41,12 +88,15 @@ var startingTries = 10;
 var triesLeft;
 
 var guessString = [];
+var winBox = document.getElementById("wins");
+var lossBox = document.getElementById("losses");
+
 
 function StartGame() {
     wins = 0;
     losses = 0;
-    document.getElementById("wins").innerHTML = "Wins: " + wins;
-    document.getElementById("losses").innerHTML = "Losses: " + losses;
+    document.getElementById("wins").innerHTML = "Firewalls Unlocked: " + wins;
+    //lossBox = "Losses: " + losses;
     Reset();
 }
 
@@ -66,20 +116,22 @@ function Reset() {
     triesLeft = startingTries;
     lettersGuessed = [];
     document.getElementById("letters-guessed").innerHTML = "";
-    document.getElementById("tries-remaining").innerHTML = "Tries Remaining: " + triesLeft;
+    document.getElementById("tries-remaining").innerHTML = "Security trips until detection: #" + triesLeft;
     ChoseWord();
 }
 
 function AddWin() {
     wins++;
-    document.getElementById("wins").innerHTML = "Wins: " + wins;
-    document.getElementById("wins").innerHTML += currentWord;
+    document.getElementById("wins").innerHTML = "Firewalls Unlocked: " + wins;
+    document.getElementById("guessed-words").innerHTML += "\n" + currentWord;
     Reset();
 }
 
 function AddLoss() {
     losses++;
-    document.getElementById("losses").innerHTML = "Losses: " + losses;
+    wins = 0;
+    //lossBox = "Losses: " + losses;
+    document.getElementById("wins").innerHTML = "Firewalls Unlocked: " + wins;
     Reset();
 }
 
@@ -97,7 +149,6 @@ document.addEventListener("keypress", function CheckGuess(e) {
 
     if (HasTried(e.key)) 
     {
-        console.log("Letter Guessed");
         return;
     }
 
@@ -115,7 +166,7 @@ document.addEventListener("keypress", function CheckGuess(e) {
         if (triesLeft > 0)
         {
             triesLeft--;
-            document.getElementById("tries-remaining").innerHTML = "Tries Remaining: " + triesLeft;
+            document.getElementById("tries-remaining").innerHTML = "Security Trips Until Detection: " + triesLeft;
         }
         else
         {

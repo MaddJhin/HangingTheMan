@@ -1,12 +1,17 @@
 body{
     background-color: black;
     color: green;
+    font-family: 'VT323', monospace;    
 }
 
 header{
     max-width: 700px;
     margin: 20px auto;
-    text-align: center;
+    padding: 10px;
+    text-align: left;
+    border-bottom: 3px dotted green;
+    border-top: 3px dotted green;
+    line-height: 2em;
 }
 
 .container{
@@ -14,7 +19,8 @@ header{
     max-width: 700px;
     margin: 0 auto;
     padding: 10px;
-    border: 1px dotted green;
+    border-top: 3px dotted green;
+    border-bottom: 3px dotted green;
     line-height: 1.5em;
     overflow: auto;
 }
@@ -24,12 +30,17 @@ header{
     float: left;
 }
 
+.word-current{
+    text-align: justify;
+}
+
 aside{
     width: 100%;
     max-width: 200px;
+    height: 700px;
     float: right;
     margin: 0 auto;
     padding: 10px;
-    border: 1px dotted green;
+    border-left: 3px dotted green;
     line-height: 1.5em;
 }
