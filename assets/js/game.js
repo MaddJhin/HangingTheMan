@@ -132,6 +132,7 @@ function AddLoss() {
     wins = 0;
     //lossBox = "Losses: " + losses;
     document.getElementById("wins").innerHTML = "Firewalls Unlocked: " + wins;
+    document.getElementById("guessed-words").innerHTML = "";
     Reset();
 }
 
