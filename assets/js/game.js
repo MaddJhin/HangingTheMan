@@ -123,7 +123,7 @@ function Reset() {
 function AddWin() {
     wins++;
     document.getElementById("wins").innerHTML = "Firewalls Unlocked: " + wins;
-    document.getElementById("guessed-words").innerHTML += "\n" + currentWord;
+    document.getElementById("guessed-words").innerHTML += "<br>" + currentWord;
     Reset();
 }
 
