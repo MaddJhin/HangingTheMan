@@ -83,7 +83,7 @@ var words = [
 var lettersGuessed = [];
 var wins = 0;
 var losses = 0;
-var currentWord;
+var currentWord = "";
 var startingTries = 10;
 var triesLeft;
 
@@ -96,7 +96,6 @@ function StartGame() {
     wins = 0;
     losses = 0;
     document.getElementById("wins").innerHTML = "Firewalls Unlocked: " + wins;
-    //lossBox = "Losses: " + losses;
     Reset();
 }
 
@@ -105,8 +104,9 @@ function ChoseWord() {
     currentWord = words[Math.floor(Math.random() * words.length)];
     
     for (var index = 0; index < currentWord.length; index++) {
-        guessString = guessString.concat(hiddenCharacters[Math.floor(
-            Math.random() * hiddenCharacters.length)] + " ");
+        // guessString = guessString.concat(hiddenCharacters[Math.floor(
+        //     Math.random() * hiddenCharacters.length)] + " ");
+        guessString = guessString.concat(hiddenCharacters[0] + " ");
     }
     
     document.getElementById("word-current").innerHTML = guessString.join(" ");
@@ -115,22 +115,24 @@ function ChoseWord() {
 function Reset() {
     triesLeft = startingTries;
     lettersGuessed = [];
-    document.getElementById("letters-guessed").innerHTML = "";
-    document.getElementById("tries-remaining").innerHTML = "Security trips until detection: #" + triesLeft;
+    document.getElementById("tries-remaining").innerHTML = "Security trips until detection: " + triesLeft;
+    document.getElementById("letters-guessed").innerHTML = "";    
     ChoseWord();
 }
 
 function AddWin() {
+    console.log("Adding Win");
     wins++;
     document.getElementById("wins").innerHTML = "Firewalls Unlocked: " + wins;
-    document.getElementById("guessed-words").innerHTML += "<br>" + currentWord;
+    document.getElementById("guessed-words").innerHTML += 
+        currentWord.toUpperCase().split("").join(" ") + "<br>";
+    PrintColumn("scrambled-words");
     Reset();
+    console.log("Win Added");
 }
 
 function AddLoss() {
-    losses++;
     wins = 0;
-    //lossBox = "Losses: " + losses;
     document.getElementById("wins").innerHTML = "Firewalls Unlocked: " + wins;
     document.getElementById("guessed-words").innerHTML = "";
     Reset();
@@ -146,19 +148,14 @@ function HasTried(letter) {
     }
 }
 
-function PrintColumn(elementID) {
-    var div = document.getElementById(elementID);
-    var divHeight = div.offsetHeight;
-    var lineHeight = div.style.lineHeight;
-    var rows = divHeight/lineHeight;
-
-    console.log(lineHeight);
-
+function PrintColumn(idName) {
+    var div = document.getElementById(idName);
+    var rows = 20 - wins;
     var placeholderString = [];
     
-    for (var i = 0; i < 20; i++)
+    for (var i = 0; i < rows; i++)
     {
-        for (var x = 0; x < 5; x++)
+        for (var x = 0; x < 8; x++)
         {
             placeholderString += hiddenCharacters[Math.floor(
                 Math.random() * hiddenCharacters.length)] + " ";
@@ -170,7 +167,7 @@ function PrintColumn(elementID) {
     div.innerHTML = placeholderString;
 }
 
-document.addEventListener("keypress", function CheckGuess(e) {
+document.addEventListener("keydown", function CheckGuess(e) {
 
     if (HasTried(e.key)) 
     {
@@ -223,4 +220,8 @@ document.addEventListener("keypress", function CheckGuess(e) {
 
 StartGame();
 ChoseWord();
-PrintColumn("guessed-words");
+PrintColumn("scrambled-words");
+
+window.setInterval(function(){
+    PrintColumn("scrambled-words");
+  }, 500);

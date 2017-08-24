@@ -62,6 +62,6 @@ aside{
     text-align: center;
 }
 
-#guessed-words {
+#guessed-words, #scrambled-words {
     line-height: 1.5;
 }
