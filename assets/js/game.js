@@ -165,8 +165,9 @@ function PrintColumn(idName) {
 }
 
 document.addEventListener("keydown", function CheckGuess(e) {
+    var key = e.key.toLowerCase();
 
-    if (HasTried(e.key)) 
+    if (HasTried(key)) 
     {
         return;
     }
@@ -175,8 +176,8 @@ document.addEventListener("keydown", function CheckGuess(e) {
 
     for (var i = 0; i < currentWord.length; i++) 
     {
-        if(e.key == currentWord[i]){
-            guessString[i] = e.key;
+        if(key == currentWord[i]){
+            guessString[i] = key;
             goodGuess = true; 
         }
     }
@@ -194,7 +195,7 @@ document.addEventListener("keydown", function CheckGuess(e) {
     }
 
     document.getElementById("word-current").innerHTML = guessString.join(" ");
-    lettersGuessed = lettersGuessed.concat(e.key);
+    lettersGuessed = lettersGuessed.concat(key);
     document.getElementById("letters-guessed").innerHTML = lettersGuessed.join(" ");
 
     if (goodGuess) {
