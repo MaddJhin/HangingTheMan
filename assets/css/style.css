@@ -46,6 +46,15 @@ header{
     float: left;
 }
 
+.tracker-left{
+    float: left;
+    width: 250px;
+}
+.tracker-right{
+    float: right;
+    width: 150px;
+}
+
 .word-current{
     text-align: justify;
 }

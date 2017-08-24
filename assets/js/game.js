@@ -81,21 +81,18 @@ var words = [
 ];
 
 var lettersGuessed = [];
-var wins = 0;
-var losses = 0;
+var wins = 20;
 var currentWord = "";
 var startingTries = 10;
 var triesLeft;
 
 var guessString = [];
 var winBox = document.getElementById("wins");
-var lossBox = document.getElementById("losses");
 
 
 function StartGame() {
-    wins = 0;
-    losses = 0;
-    document.getElementById("wins").innerHTML = "Firewalls Unlocked: " + wins;
+    wins = 20;
+    document.getElementById("wins").innerHTML = wins;
     Reset();
 }
 
@@ -115,15 +112,15 @@ function ChoseWord() {
 function Reset() {
     triesLeft = startingTries;
     lettersGuessed = [];
-    document.getElementById("tries-remaining").innerHTML = "Security trips until detection: " + triesLeft;
+    document.getElementById("tries-remaining").innerHTML = triesLeft;
     document.getElementById("letters-guessed").innerHTML = "";    
     ChoseWord();
 }
 
 function AddWin() {
     console.log("Adding Win");
-    wins++;
-    document.getElementById("wins").innerHTML = "Firewalls Unlocked: " + wins;
+    wins--;
+    document.getElementById("wins").innerHTML = wins;
     document.getElementById("guessed-words").innerHTML += 
         currentWord.toUpperCase().split("").join(" ") + "<br>";
     PrintColumn("scrambled-words");
@@ -132,8 +129,8 @@ function AddWin() {
 }
 
 function AddLoss() {
-    wins = 0;
-    document.getElementById("wins").innerHTML = "Firewalls Unlocked: " + wins;
+    wins = 20;
+    document.getElementById("wins").innerHTML = wins;
     document.getElementById("guessed-words").innerHTML = "";
     Reset();
 }
@@ -150,11 +147,11 @@ function HasTried(letter) {
 
 function PrintColumn(idName) {
     var div = document.getElementById(idName);
-    var rows = 20 - wins;
+    var rows = wins;
     var placeholderString = [];
     
     for (var i = 0; i < rows; i++)
-    {
+        {
         for (var x = 0; x < 8; x++)
         {
             placeholderString += hiddenCharacters[Math.floor(
@@ -188,7 +185,7 @@ document.addEventListener("keydown", function CheckGuess(e) {
         if (triesLeft > 0)
         {
             triesLeft--;
-            document.getElementById("tries-remaining").innerHTML = "Security Trips Until Detection: " + triesLeft;
+            document.getElementById("tries-remaining").innerHTML = triesLeft;
         }
         else
         {
@@ -209,7 +206,6 @@ document.addEventListener("keydown", function CheckGuess(e) {
         for (var i = 0; i < currentWord.length; i++){
             if(currentWord[i] != guessString[i]){
                 allGuessed = false;
-                console.log("Not Same");
             }
         }
 
