@@ -61,7 +61,6 @@ var words = [
     "continue",
     "planning",
     "strength",
-    "couldn't",
     "position",
     "students",
     "decision",
@@ -107,6 +106,7 @@ function ChoseWord() {
     }
     
     document.getElementById("word-current").innerHTML = guessString.join(" ");
+    console.log(currentWord);
 }
 
 function Reset() {
@@ -126,6 +126,10 @@ function AddWin() {
     PrintColumn("scrambled-words");
     Reset();
     console.log("Win Added");
+    if(wins == 0){
+        console.log("Alerting");
+        document.getElementById("alert-window").style.opacity = 1;
+    }
 }
 
 function AddLoss() {
