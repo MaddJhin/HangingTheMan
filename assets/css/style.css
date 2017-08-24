@@ -22,10 +22,9 @@ body{
 
 header{
     max-width: 700px;
-    margin: 20px auto;
+    margin: 20px auto 0px;
     padding: 10px;
     text-align: left;
-    border-bottom: 3px dotted green;
     border-top: 3px dotted green;
     line-height: 2em;
 }

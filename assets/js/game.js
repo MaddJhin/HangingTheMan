@@ -167,7 +167,7 @@ function PrintColumn(idName) {
 document.addEventListener("keydown", function CheckGuess(e) {
     var key = e.key.toLowerCase();
 
-    if (HasTried(key)) 
+    if (HasTried(key) || e.keyCode < 64 || e.keyCode > 91) 
     {
         return;
     }
